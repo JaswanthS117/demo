@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         GIT_REPO = 'https://github.com/JaswanthS117/demo.git'  // Update with your ColdFusion app repository
-        CF_DEST_PATH = 'C:\inetpub\wwwroot\qr-api'  // Update to your ColdFusion app's deployment directory
+        CF_DEST_PATH = 'C:\\inetpub\\wwwroot\\Demo'  // Update to your ColdFusion app's deployment directory
         GIT_CREDENTIALS_ID = '7be70f43-5ba8-4225-bf84-7ad5946b593a'
     }
     stages {
