@@ -16,19 +16,11 @@ pipeline {
                 script {
                     echo "Deploying only updated or new files to ${CF_DEST_PATH}"
                     bat """
-                        robocopy "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\demo" "C:\\inetpub\\wwwroot\\Demo" /E /XD .git /XC /XN /XO
+                        robocopy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\demo C:\\inetpub\\wwwroot\\Demo /MIR /XO /XD .git /XF *.log
                     """
                 }
             }
         }
-        stage('Deploy to IIS') {
-            steps {
-                script {
-                    bat 'robocopy C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\demo C:\\inetpub\\wwwroot\\Demo /MIR /XO /XD .git /XF *.log'
-                }
-            }
-        }
-
     }
     post {
         success {
