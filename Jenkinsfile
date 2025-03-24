@@ -16,7 +16,7 @@ pipeline {
                 script {
                     echo "Deploying only updated or new files to ${CF_DEST_PATH}"
                     bat """
-                        robocopy "${WORKSPACE}" "${CF_DEST_PATH}" /E /XC /XN /XO
+                        robocopy "C:\ProgramData\Jenkins\.jenkins\workspace\demo" "C:\inetpub\wwwroot\Demo" /E /XD .git /XC /XN /XO
                     """
                 }
             }
