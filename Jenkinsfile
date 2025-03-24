@@ -11,23 +11,12 @@ pipeline {
                 git credentialsId: "${GIT_CREDENTIALS_ID}", url: "${GIT_REPO}", branch: 'main'
             }
         }
-        stage('Prepare Deployment Directory') {
+        stage('Deploy Updated Files') {
             steps {
                 script {
-                    echo "Cleaning old files in ${CF_DEST_PATH}"
+                    echo "Deploying only updated or new files to ${CF_DEST_PATH}"
                     bat """
-                        powershell -command "if (Test-Path '${CF_DEST_PATH}') { Remove-Item -Recurse -Force '${CF_DEST_PATH}' }"
-                        powershell -command "New-Item -ItemType Directory -Path '${CF_DEST_PATH}'"
-                    """
-                }
-            }
-        }
-        stage('Copy Files to Server') {
-            steps {
-                script {
-                    echo "Copying application files to ${CF_DEST_PATH}"
-                    bat """
-                        xcopy "${WORKSPACE}\\*" "${CF_DEST_PATH}" /E /H /Y /C
+                        robocopy "${WORKSPACE}" "${CF_DEST_PATH}" /E /XC /XN /XO
                     """
                 }
             }
@@ -35,7 +24,6 @@ pipeline {
     }
     post {
         success {
-            // Archive all files from the workspace as artifacts with fingerprinting
             archiveArtifacts artifacts: '**/*', fingerprint: true
             echo 'ColdFusion application deployment successful!'
         }
