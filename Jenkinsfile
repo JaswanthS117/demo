@@ -35,6 +35,8 @@ pipeline {
     }
     post {
         success {
+            // Archive all files from the workspace as artifacts with fingerprinting
+            archiveArtifacts artifacts: '**/*', fingerprint: true
             echo 'ColdFusion application deployment successful!'
         }
         failure {
