@@ -27,7 +27,7 @@ pipeline {
                 script {
                     echo "Copying application files to ${CF_DEST_PATH}"
                     bat """
-                        xcopy "${WORKSPACE}\*" "${CF_DEST_PATH}" /E /H /Y /C
+                        xcopy "${WORKSPACE}\\*" "${CF_DEST_PATH}" /E /H /Y /C
                     """
                 }
             }
